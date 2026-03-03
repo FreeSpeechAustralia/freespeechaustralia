@@ -11,6 +11,8 @@ const stars = Array.from({ length: 70 }, () => ({
   r: Math.random() * 1.7 + 0.4,
   o: Math.random() * 0.6 + 0.2,
   v: Math.random() * 0.0007 + 0.0002,
+  twinklePhase: Math.random() * Math.PI * 2,
+  twinkleSpeed: Math.random() * 0.03 + 0.012,
 }));
 
 function resizeCanvas() {
@@ -27,10 +29,15 @@ function drawStars() {
   stars.forEach((star) => {
     star.y += star.v;
     if (star.y > 1.02) star.y = -0.02;
+    star.twinklePhase += star.twinkleSpeed;
+
+    const twinkleWave = (Math.sin(star.twinklePhase) + 1) / 2;
+    const alpha = Math.min(1, star.o * (0.45 + twinkleWave * 1.7));
+    const radius = star.r * (0.8 + twinkleWave * 0.95);
 
     ctx.beginPath();
-    ctx.arc(star.x * canvas.width, star.y * canvas.height, star.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(183, 222, 255, ${star.o})`;
+    ctx.arc(star.x * canvas.width, star.y * canvas.height, radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(183, 222, 255, ${alpha.toFixed(3)})`;
     ctx.fill();
   });
 
