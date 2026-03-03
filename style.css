@@ -1,0 +1,119 @@
+:root {
+  --bg: #030a1b;
+  --text: #edf4ff;
+  --muted: #bfd7f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+  min-height: 100dvh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-image: linear-gradient(160deg, rgba(3, 10, 27, 0.8), rgba(3, 10, 27, 0.6)), url("Branding/background.png");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+#nebula-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.hero {
+  min-height: 100dvh;
+  width: min(1000px, calc(100% - 2rem));
+  margin: 0 auto;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(1rem, 2.8vw, 1.8rem);
+  padding: clamp(1rem, 2.4vw, 2rem);
+}
+
+.fsa-logo {
+  width: clamp(130px, 19vw, 250px);
+  height: auto;
+  filter: drop-shadow(0 16px 34px rgba(115, 194, 255, 0.28));
+  transform-origin: 50% 50%;
+  will-change: transform, filter;
+}
+
+.tagline {
+  margin: 0;
+  min-height: 1.8em;
+  text-align: center;
+  color: var(--muted);
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.06rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 18px rgba(118, 186, 255, 0.32);
+}
+
+.tagline::after {
+  content: "";
+  display: inline-block;
+  width: 0.11em;
+  height: 1em;
+  margin-left: 0.2em;
+  vertical-align: -0.08em;
+  background: rgba(197, 231, 255, 0.95);
+  animation: cursor-blink 860ms steps(1, end) infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  body::before {
+    background-image: linear-gradient(160deg, rgba(3, 10, 27, 0.62), rgba(3, 10, 27, 0.4)), url("Branding/background-mobile.png");
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+  }
+
+  body {
+    overflow-y: auto;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  #nebula-canvas {
+    opacity: 0.74;
+  }
+}
